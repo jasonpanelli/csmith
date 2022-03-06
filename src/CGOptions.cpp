@@ -197,6 +197,9 @@ DEFINE_GETTER_SETTER_BOOL(lang_cpp);
 DEFINE_GETTER_SETTER_BOOL(cpp11);
 DEFINE_GETTER_SETTER_BOOL(fast_execution);
 DEFINE_GETTER_SETTER_INT(array_oob_prob);
+DEFINE_GETTER_SETTER_BOOL(static_vars);
+DEFINE_GETTER_SETTER_INT(static_var_prob);
+DEFINE_GETTER_SETTER_BOOL(hls_mode);
 
 //GCC C Extensions
 DEFINE_GETTER_SETTER_BOOL(func_attr_flag);
@@ -318,6 +321,9 @@ CGOptions::set_default_settings(void)
 	cpp11(false);
   fast_execution(false);
 	array_oob_prob(0);
+	static_vars(false);
+	static_var_prob(50);
+	hls_mode(false);
 
 	set_default_builtin_kinds();
 	Int128(false);
@@ -575,6 +581,12 @@ CGOptions::has_conflict(void)
 
 	if (!CGOptions::lang_cpp() && CGOptions::cpp11()) {
 		conflict_msg_ = "--cpp11 option makes sense only with --lang-cpp option enabled.";
+		return true;
+	}
+
+	if ((CGOptions::static_var_prob() < 0) ||
+	    (CGOptions::static_var_prob() > 100)) {
+		conflict_msg_ = "static-var-prob value must between [0,100]";
 		return true;
 	}
 

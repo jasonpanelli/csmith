@@ -67,6 +67,7 @@ enum ProbName {
     pComponentFunctionProb,
 	pBuiltinFunctionProb,
     pArrayOOBProb,
+	pStaticVarProb,
 
 	// group for statement
 	pStatementProb,
@@ -257,6 +258,9 @@ enum ProbName {
 
 #define BinaryConstProb \
         Probabilities::get_prob(pBinaryConstProb)
+
+#define StaticVarProb \
+		Probabilities::get_prob(pStaticVarProb)
 
 //////////////////////////////////////////////////
 #define UNARY_OPS_PROB_FILTER \

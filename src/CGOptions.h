@@ -359,6 +359,12 @@ public:
 	static bool signed_char_index(void);
 	static bool signed_char_index(bool p);
 
+	static bool static_vars(void);
+	static bool static_vars(bool p);
+
+	static bool hls_mode(void);
+	static bool hls_mode(bool p);
+
 	/////////////////////////////////////////////////////////
 	static void set_default_settings(void);
 
@@ -465,6 +471,9 @@ public:
 
   static bool fast_execution(void);
   static bool fast_execution(bool p);
+
+	static int static_var_prob(void);
+	static int static_var_prob(int p);
 
 	//GCC C Extensions
 	static bool func_attr_flag(void);
@@ -598,6 +607,8 @@ private:
 	static std::string	dump_default_probabilities_;
 	static std::string	dump_random_probabilities_;
 	static std::string	probability_configuration_;
+	static bool	static_vars_;
+	static bool hls_mode_;
 
 	static std::string conflict_msg_;
 	static bool match_exact_qualifiers_;
@@ -626,6 +637,7 @@ private:
 	static bool take_union_field_addr_;
 	static bool vol_struct_union_fields_;
 	static bool const_struct_union_fields_;
+	static int static_var_prob_;
   static bool fast_execution_;
 
 	// flag to indicate language

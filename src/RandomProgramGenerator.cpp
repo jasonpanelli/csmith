@@ -1256,6 +1256,11 @@ main(int argc, char **argv)
 			continue;
 		}
 
+		if (strcmp (argv[i], "--no-static-globals") == 0) {
+			CGOptions::force_globals_static(false);
+			continue;
+		}
+
 		if (strcmp (argv[i], "--force-non-uniform-arrays") == 0) {
 			CGOptions::force_non_uniform_array_init(true);
 			continue;
@@ -1529,6 +1534,32 @@ main(int argc, char **argv)
             CGOptions::pointer_size(size);
             continue;
         }
+
+		if (strcmp (argv[i], "--static-vars") == 0) {
+			CGOptions::static_vars(true);
+			continue;
+		}
+
+		if (strcmp (argv[i], "--no-static-vars") == 0) {
+			CGOptions::static_vars(false);
+			continue;
+		}
+
+		if (strcmp (argv[i], "--static-var-prob") == 0 ) {
+			unsigned long prob;
+			i++;
+			arg_check(argc, i);
+			if (!parse_int_arg(argv[i], &prob))
+				exit(-1);
+			CGOptions::static_var_prob(prob);
+			continue;
+		}
+
+		if (strcmp (argv[i], "--hls-mode") == 0) {
+			CGOptions::hls_mode(true);
+			continue;
+		}
+
 
     if (strcmp(argv[i], "--fast-execution") == 0) {
       CGOptions::lang_cpp(true);

@@ -487,6 +487,9 @@ Probabilities::set_single_name_maps()
 	// for choosing OOB limit
     set_single_name("array_oob_prob", pArrayOOBProb);
 
+	// for making variables static
+	set_single_name("static_var_prob", pStaticVarProb);
+
         //////////////////////////////////////////////////////////////////
 	// group for statement
 	set_single_name("statement_prob", pStatementProb);
@@ -627,6 +630,8 @@ Probabilities::initialize_single_probs()
 	m[pComponentFunctionProb] = CGOptions::inline_function_prob();
 	m[pBuiltinFunctionProb] = CGOptions::builtin_function_prob();
     m[pArrayOOBProb] = CGOptions::array_oob_prob();
+
+	m[pStaticVarProb] = CGOptions::static_var_prob();
 
 	std::map<ProbName, int>::iterator i;
 	for (i = m.begin(); i != m.end(); ++i) {
