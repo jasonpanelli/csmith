@@ -766,6 +766,10 @@ main(int argc, char **argv)
 			continue;
 		}
         
+		if (strcmp (argv[i], "--loop-pragmas") == 0) {
+			CGOptions::loop_pragma(true);
+		}
+
 		if (strcmp (argv[i], "--longlong") == 0) {
 			CGOptions::longlong(true);
 			continue;
@@ -1283,6 +1287,16 @@ main(int argc, char **argv)
 			if (!parse_int_arg(argv[i], &prob))
 				exit(-1);
 			CGOptions::component_function_prob(prob);
+			continue;
+		}
+
+		if (strcmp (argv[i], "--loop-pragma-prob") == 0) {
+			unsigned long prob; 
+			i++;
+			arg_check(argc, i);
+			if (!parse_int_arg(argv[i], &prob))
+				exit(-1);
+			CGOptions::loop_pragma_prob(prob);
 			continue;
 		}
 
