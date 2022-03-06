@@ -399,6 +399,7 @@ StatementFor::output_header(std::ostream& out, int indent) const
 	output_tab(out, indent);
 	if (CGOptions::loop_pragma() && rnd_flipcoin(LoopPragmaProb)) {
 		int pragma = rand() % 9; 
+		int N; 
 		switch(pragma) {
 			case 0:
 				// disable_loop_piplining 
@@ -407,13 +408,13 @@ StatementFor::output_header(std::ostream& out, int indent) const
 			case 1:
 				// ii N 
 				// N is between [1-10]
-				int N = rand() % 10 + 1;
+				N = rand() % 10 + 1;
 				out << "#pragma ii " << N << "\n"; 
 				break;
 			case 2:
 				// ivdep safelen(N)
 				// N is bewteen [1-10]
-				int N = rand() % 10 + 1;
+				N = rand() % 10 + 1;
 				out << "#pragma ivdep safelen(" << N << ")\n";
 				break;
 			case 3:
@@ -428,12 +429,12 @@ StatementFor::output_header(std::ostream& out, int indent) const
 			case 5:
 				// max_concurrency N 
 				// N is between [1-3]
-				int N = rand() % 3 + 1; 
+				N = rand() % 3 + 1; 
 				out << "#pragma max_concurrency " << N << "\n"; 
 				break;
 			case 6:
 				// max_interleaving <1 or 0> 
-				int N = rand() % 2; 
+				N = rand() % 2; 
 				out << "#pragma max_interleaving " << N << "\n"; 
 				break;
 			case 7:
