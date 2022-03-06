@@ -635,7 +635,7 @@ private:
   	static bool fast_execution_;
 
 	static bool loop_pragma_; 
-	static bool loop_pragma_prob_; 
+	static int loop_pragma_prob_; 
 
 	// flag to indicate language
 	static bool lang_cpp_;
