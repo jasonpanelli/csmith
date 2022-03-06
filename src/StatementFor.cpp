@@ -397,6 +397,9 @@ void
 StatementFor::output_header(std::ostream& out, int indent) const
 {
 	output_tab(out, indent);
+	if (CGOptions::loop_pragma && rnd_flipcoin(LoopPragmaProb)) {
+		out << "#pragma disable_loop_pipelining\n";
+	}
 	out << "for (";
 	init.OutputAsExpr(out);
 	out << "; ";

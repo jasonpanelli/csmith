@@ -197,6 +197,8 @@ DEFINE_GETTER_SETTER_BOOL(lang_cpp);
 DEFINE_GETTER_SETTER_BOOL(cpp11);
 DEFINE_GETTER_SETTER_BOOL(fast_execution);
 DEFINE_GETTER_SETTER_INT(array_oob_prob);
+DEFINE_GETTER_SETTER_BOOL(loop_pragma)
+DEFINE_GETTER_SETTER_INT(loop_pragma_prob)
 
 //GCC C Extensions
 DEFINE_GETTER_SETTER_BOOL(func_attr_flag);
@@ -318,6 +320,8 @@ CGOptions::set_default_settings(void)
 	cpp11(false);
   fast_execution(false);
 	array_oob_prob(0);
+	loop_pragma(false);
+	loop_pragma_prob(50); 
 
 	set_default_builtin_kinds();
 	Int128(false);
@@ -536,6 +540,12 @@ CGOptions::has_conflict(void)
 	    (CGOptions::component_function_prob() > 100)) {
 		conflict_msg_ = "component-function-prob value must between [0,100]";
 		return true;
+	}
+
+	if ((CGOptions::loop_pragma_prob() < 0) ||
+		(CGOptions::loop_pragma_prob() > 100)) {
+		conflict_msg_ = "loop-program-prob value must be between [0,100]"; 
+		return true
 	}
     
 	if ((CGOptions::builtin_function_prob() < 0) ||

@@ -359,6 +359,9 @@ public:
 	static bool signed_char_index(void);
 	static bool signed_char_index(bool p);
 
+	static bool loop_pragma(void);
+	static bool loop_pragma(bool p); 
+
 	/////////////////////////////////////////////////////////
 	static void set_default_settings(void);
 
@@ -465,6 +468,9 @@ public:
 
   static bool fast_execution(void);
   static bool fast_execution(bool p);
+
+	static int loop_pragma_prob(void);
+	static int loop_pragma_prob(int p); 
 
 	//GCC C Extensions
 	static bool func_attr_flag(void);
@@ -627,6 +633,7 @@ private:
 	static bool vol_struct_union_fields_;
 	static bool const_struct_union_fields_;
   static bool fast_execution_;
+	static bool loop_pragma_prob_; 
 
 	// flag to indicate language
 	static bool lang_cpp_;
