@@ -1256,6 +1256,11 @@ main(int argc, char **argv)
 			continue;
 		}
 
+		if (strcmp (argv[i], "--no-static-globals") == 0) {
+			CGOptions::force_globals_static(false);
+			continue;
+		}
+
 		if (strcmp (argv[i], "--force-non-uniform-arrays") == 0) {
 			CGOptions::force_non_uniform_array_init(true);
 			continue;
@@ -1547,6 +1552,11 @@ main(int argc, char **argv)
 			if (!parse_int_arg(argv[i], &prob))
 				exit(-1);
 			CGOptions::static_var_prob(prob);
+			continue;
+		}
+
+		if (strcmp (argv[i], "--hls-mode") == 0) {
+			CGOptions::hls_mode(true);
 			continue;
 		}
 

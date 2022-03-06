@@ -362,6 +362,9 @@ public:
 	static bool static_vars(void);
 	static bool static_vars(bool p);
 
+	static bool hls_mode(void);
+	static bool hls_mode(bool p);
+
 	/////////////////////////////////////////////////////////
 	static void set_default_settings(void);
 
@@ -605,6 +608,7 @@ private:
 	static std::string	dump_random_probabilities_;
 	static std::string	probability_configuration_;
 	static bool	static_vars_;
+	static bool hls_mode_;
 
 	static std::string conflict_msg_;
 	static bool match_exact_qualifiers_;

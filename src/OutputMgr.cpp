@@ -113,7 +113,12 @@ OutputMgr::OutputMain(std::ostream &out)
 	out << endl << endl;
 	output_comment_line(out, "----------------------------------------");
 
-	ExtensionMgr::OutputInit(out);
+	if (CGOptions::hls_mode()) {
+		out << "component int componentFunc(void) {" << endl;
+	}
+	else {
+		ExtensionMgr::OutputInit(out);
+	}
 
 	// output initializers for global array variables
 	OutputArrayInitializers(*VariableSelector::GetGlobalVariables(), out, 1);
@@ -126,15 +131,17 @@ OutputMgr::OutputMain(std::ostream &out)
 		}
 	}
 	else {
-		// set up a global variable that controls if we print the hash value after computing it for each global
-		out << "    int print_hash_value = 0;" << endl;
-		if (CGOptions::accept_argc()) {
-			out << "    if (argc == 2 && strcmp(argv[1], \"1\") == 0) print_hash_value = 1;" << endl;
-		}
+		if (!CGOptions::hls_mode()) {
+			// set up a global variable that controls if we print the hash value after computing it for each global
+			out << "    int print_hash_value = 0;" << endl;
+			if (CGOptions::accept_argc()) {
+				out << "    if (argc == 2 && strcmp(argv[1], \"1\") == 0) print_hash_value = 1;" << endl;
+			}
 
-		out << "    platform_main_begin();" << endl;
-		if (CGOptions::compute_hash()) {
-			out << "    crc32_gentab();" << endl;
+			out << "    platform_main_begin();" << endl;
+			if (CGOptions::compute_hash()) {
+				out << "    crc32_gentab();" << endl;
+			}
 		}
 
 		ExtensionMgr::OutputFirstFunInvocation(out, invoke);
@@ -149,19 +156,31 @@ OutputMgr::OutputMain(std::ostream &out)
 			OutputPtrResets(out, GetFirstFunction()->dead_globals);
 		}
 
-		if (CGOptions::step_hash_by_stmt())
-			OutputMgr::OutputHashFuncInvocation(out, 1);
-		else
-			HashGlobalVariables(out);
-		if (CGOptions::compute_hash()) {
-			out << "    platform_main_end(crc32_context ^ 0xFFFFFFFFUL, print_hash_value);" << endl;
-		} else {
-			out << "    platform_main_end(0,0);" << endl;
+		if (!CGOptions::hls_mode()) {
+			if (CGOptions::step_hash_by_stmt())
+				OutputMgr::OutputHashFuncInvocation(out, 1);
+			else
+				HashGlobalVariables(out);
+
+			if (CGOptions::compute_hash()) {
+				out << "    platform_main_end(crc32_context ^ 0xFFFFFFFFUL, print_hash_value);" << endl;
+			} else {
+				out << "    platform_main_end(0,0);" << endl;
+			}
 		}
 	}
 	ExtensionMgr::OutputTail(out);
 	out << "}" << endl;
 	delete invoke;
+
+	if (CGOptions::hls_mode()) {
+		out << endl << endl;
+		out << "int main(void) {" << endl;
+		out << "    int componentReturn = componentFunc();" << endl;
+		out << "    printf(\"%i\\n\", componentReturn);" << endl;
+		out << "    return 0;" << endl;
+		out << "}" << endl;
+	}
 }
 
 void

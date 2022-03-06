@@ -197,8 +197,9 @@ DEFINE_GETTER_SETTER_BOOL(lang_cpp);
 DEFINE_GETTER_SETTER_BOOL(cpp11);
 DEFINE_GETTER_SETTER_BOOL(fast_execution);
 DEFINE_GETTER_SETTER_INT(array_oob_prob);
-DEFINE_GETTER_SETTER_BOOL(static_vars)
-DEFINE_GETTER_SETTER_INT(static_var_prob)
+DEFINE_GETTER_SETTER_BOOL(static_vars);
+DEFINE_GETTER_SETTER_INT(static_var_prob);
+DEFINE_GETTER_SETTER_BOOL(hls_mode);
 
 //GCC C Extensions
 DEFINE_GETTER_SETTER_BOOL(func_attr_flag);
@@ -322,6 +323,7 @@ CGOptions::set_default_settings(void)
 	array_oob_prob(0);
 	static_vars(false);
 	static_var_prob(50);
+	hls_mode(false);
 
 	set_default_builtin_kinds();
 	Int128(false);
