@@ -632,7 +632,9 @@ private:
 	static bool take_union_field_addr_;
 	static bool vol_struct_union_fields_;
 	static bool const_struct_union_fields_;
-  static bool fast_execution_;
+  	static bool fast_execution_;
+
+	static bool loop_pragma_; 
 	static bool loop_pragma_prob_; 
 
 	// flag to indicate language
