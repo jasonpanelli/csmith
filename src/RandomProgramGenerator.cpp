@@ -1530,6 +1530,27 @@ main(int argc, char **argv)
             continue;
         }
 
+		if (strcmp (argv[i], "--static-vars") == 0) {
+			CGOptions::static_vars(true);
+			continue;
+		}
+
+		if (strcmp (argv[i], "--no-static-vars") == 0) {
+			CGOptions::static_vars(false);
+			continue;
+		}
+
+		if (strcmp (argv[i], "--static-var-prob") == 0 ) {
+			unsigned long prob;
+			i++;
+			arg_check(argc, i);
+			if (!parse_int_arg(argv[i], &prob))
+				exit(-1);
+			CGOptions::static_var_prob(prob);
+			continue;
+		}
+
+
     if (strcmp(argv[i], "--fast-execution") == 0) {
       CGOptions::lang_cpp(true);
       // jumps can easily cause infinite loops. Just disable them
