@@ -768,6 +768,7 @@ main(int argc, char **argv)
         
 		if (strcmp (argv[i], "--loop-pragmas") == 0) {
 			CGOptions::loop_pragma(true);
+			continue;
 		}
 
 		if (strcmp (argv[i], "--longlong") == 0) {
