@@ -359,7 +359,10 @@ public:
 	static bool signed_char_index(void);
 	static bool signed_char_index(bool p);
 
-	static bool static_vars(void);
+	static bool loop_pragma(void);
+	static bool loop_pragma(bool p); 
+
+  static bool static_vars(void);
 	static bool static_vars(bool p);
 
 	static bool hls_mode(void);
@@ -471,6 +474,9 @@ public:
 
   static bool fast_execution(void);
   static bool fast_execution(bool p);
+
+	static int loop_pragma_prob(void);
+	static int loop_pragma_prob(int p); 
 
 	static int static_var_prob(void);
 	static int static_var_prob(int p);
@@ -637,8 +643,12 @@ private:
 	static bool take_union_field_addr_;
 	static bool vol_struct_union_fields_;
 	static bool const_struct_union_fields_;
-	static int static_var_prob_;
   static bool fast_execution_;
+
+	static bool loop_pragma_; 
+	static int loop_pragma_prob_; 
+
+  static int static_var_prob_;
 
 	// flag to indicate language
 	static bool lang_cpp_;

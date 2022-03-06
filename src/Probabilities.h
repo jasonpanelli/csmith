@@ -64,9 +64,10 @@ enum ProbName {
 	pNewArrayVariableProb,
 	pAccessOnceVariableProb,
 	pInlineFunctionProb,
-    pComponentFunctionProb,
+  pComponentFunctionProb,
 	pBuiltinFunctionProb,
-    pArrayOOBProb,
+  pArrayOOBProb,
+	pLoopPragmaProb,
 	pStaticVarProb,
 
 	// group for statement
@@ -257,7 +258,10 @@ enum ProbName {
 	Probabilities::get_prob(pUInt128Prob)
 
 #define BinaryConstProb \
-        Probabilities::get_prob(pBinaryConstProb)
+    Probabilities::get_prob(pBinaryConstProb)
+
+#define LoopPragmaProb \
+	Probabilities::get_prob(pLoopPragmaProb)
 
 #define StaticVarProb \
 		Probabilities::get_prob(pStaticVarProb)

@@ -487,7 +487,10 @@ Probabilities::set_single_name_maps()
 	// for choosing OOB limit
     set_single_name("array_oob_prob", pArrayOOBProb);
 
-	// for making variables static
+	// for loop pragmas 
+	set_single_name("loop_pragma_prob", pLoopPragmaProb);
+
+  // for making variables static
 	set_single_name("static_var_prob", pStaticVarProb);
 
         //////////////////////////////////////////////////////////////////
@@ -630,6 +633,7 @@ Probabilities::initialize_single_probs()
 	m[pComponentFunctionProb] = CGOptions::inline_function_prob();
 	m[pBuiltinFunctionProb] = CGOptions::builtin_function_prob();
     m[pArrayOOBProb] = CGOptions::array_oob_prob();
+	m[pLoopPragmaProb] = CGOptions::loop_pragma_prob();
 
 	m[pStaticVarProb] = CGOptions::static_var_prob();
 

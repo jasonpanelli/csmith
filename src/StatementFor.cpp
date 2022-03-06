@@ -397,6 +397,56 @@ void
 StatementFor::output_header(std::ostream& out, int indent) const
 {
 	output_tab(out, indent);
+	if (CGOptions::loop_pragma() && rnd_flipcoin(LoopPragmaProb)) {
+		int pragma = rand() % 9; 
+		int N; 
+		switch(pragma) {
+			case 0:
+				// disable_loop_piplining 
+				out << "#pragma disable_loop_pipelining\n";
+				break;
+			case 1:
+				// ii N 
+				// N is between [1-10]
+				N = rand() % 10 + 1;
+				out << "#pragma ii " << N << "\n"; 
+				break;
+			case 2:
+				// ivdep safelen(N)
+				// N is bewteen [1-10]
+				N = rand() % 10 + 1;
+				out << "#pragma ivdep safelen(" << N << ")\n";
+				break;
+			case 3:
+				// loop_coalesce N
+				// N is 2 because we set the max block depth to be 2
+				out << "#pragma loop_coalesce 2\n"; 
+				break;
+			case 4:
+				// loop_fuse
+				out << "#pragma loop_fuse\n"; 
+				break;
+			case 5:
+				// max_concurrency N 
+				// N is between [1-3]
+				N = rand() % 3 + 1; 
+				out << "#pragma max_concurrency " << N << "\n"; 
+				break;
+			case 6:
+				// max_interleaving <1 or 0> 
+				N = rand() % 2; 
+				out << "#pragma max_interleaving " << N << "\n"; 
+				break;
+			case 7:
+				// nofusion 
+				out << "#pragma nofusion\n"; 
+				break;
+			default: 
+				// unroll
+				out << "#pragma unroll\n";
+				break;
+		}
+	}
 	out << "for (";
 	init.OutputAsExpr(out);
 	out << "; ";
