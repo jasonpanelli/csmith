@@ -362,6 +362,12 @@ public:
 	static bool loop_pragma(void);
 	static bool loop_pragma(bool p); 
 
+  static bool static_vars(void);
+	static bool static_vars(bool p);
+
+	static bool hls_mode(void);
+	static bool hls_mode(bool p);
+
 	/////////////////////////////////////////////////////////
 	static void set_default_settings(void);
 
@@ -471,6 +477,9 @@ public:
 
 	static int loop_pragma_prob(void);
 	static int loop_pragma_prob(int p); 
+
+	static int static_var_prob(void);
+	static int static_var_prob(int p);
 
 	//GCC C Extensions
 	static bool func_attr_flag(void);
@@ -604,6 +613,8 @@ private:
 	static std::string	dump_default_probabilities_;
 	static std::string	dump_random_probabilities_;
 	static std::string	probability_configuration_;
+	static bool	static_vars_;
+	static bool hls_mode_;
 
 	static std::string conflict_msg_;
 	static bool match_exact_qualifiers_;
@@ -632,10 +643,13 @@ private:
 	static bool take_union_field_addr_;
 	static bool vol_struct_union_fields_;
 	static bool const_struct_union_fields_;
-  	static bool fast_execution_;
+  static bool fast_execution_;
 
 	static bool loop_pragma_; 
 	static int loop_pragma_prob_; 
+
+  static int static_var_prob_;
+  static bool fast_execution_;
 
 	// flag to indicate language
 	static bool lang_cpp_;

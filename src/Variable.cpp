@@ -716,6 +716,19 @@ Variable::OutputDef(std::ostream &out, int indent) const
 	if (CGOptions::force_globals_static() && is_global()) {
 		out << "static ";
 	}
+	else if (CGOptions::static_vars() && rnd_flipcoin(StaticVarProb)) {
+		int rnd_num = rnd_upto(4);
+		// 25% no specified attr, 25% hls_init_on_reset, 50% hls_init_on_powerup
+		// hls_init_on_reset has same behavior as none specified
+		if (rnd_num == 0) {
+			out << "hls_init_on_reset ";
+		}
+		else if (rnd_num >= 2) {
+			out << "hls_init_on_powerup ";
+		}
+		out << "static ";
+	}
+
 	output_qualified_type(out);
 	out << get_actual_name();
 	var_attr_generator.Output(out);
