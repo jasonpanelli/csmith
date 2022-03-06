@@ -69,6 +69,42 @@ can pass to Csmith and customize the random generation.
 Here is a slightly outdated but still relevant document about
 [using Csmith for compiler testing](http://embed.cs.utah.edu/csmith/using.html).
 
+## Run Csmith with HLS
+
+### Run Csmith with probabilities file 
+```
+csmith --probability-configuration prob.txt --no-argc --max-array-dim 3 --max-funcs 5 --max-expr-complexity 2 --no-float --no-embedded-assigns --max-block-depth 2 --no-unions --no-packed-struct --no-const-pointers --no-pointers --strict-const-arrays > random.c
+```
+
+### Run Csmith with component function 
+You can modify the value of component\_function\_prob=\<number between 0-100\> in prob.txt. 
+```
+csmith --component-function > random.c
+```
+
+### Run Csmith with loop pragmas 
+You can modify the value of loop\_pragma\_prob=\<number between 0-100\> in prob.txt. 
+```
+csmith --loop-pragmas > random.c
+```
+
+### Compile Csmith with HLS Compiler 
+Command has the following structure. 
+```
+dpcpp -Wno-narrowing -fintelfpga -march=x86-64 [filename] -o [output executable name].exe -I[path to hls-include]
+```
+
+An example command. 
+```
+dpcpp -Wno-narrowing -fintelfpga -march=x86-64 random.c -o random.exe -Ihls-include
+```
+
+### Run Compiled Program 
+Run the generated executable. 
+```
+./random.exe
+```
+
 ## History
 
 Csmith was originally developed at the University of Utah by:
