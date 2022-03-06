@@ -545,7 +545,7 @@ CGOptions::has_conflict(void)
 	if ((CGOptions::loop_pragma_prob() < 0) ||
 		(CGOptions::loop_pragma_prob() > 100)) {
 		conflict_msg_ = "loop-program-prob value must be between [0,100]"; 
-		return true
+		return true;
 	}
     
 	if ((CGOptions::builtin_function_prob() < 0) ||
