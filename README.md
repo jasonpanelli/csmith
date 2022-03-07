@@ -13,6 +13,12 @@ write them, feel free to give Csmith a try.
 Csmith outputs C programs free of undefined behaviors (believe us, that's
 not trivial), and the statistics of each generated program.
 
+## About HLSCsmith
+
+This version of Csmith has been extended to produce random programs that are
+compatible with the Intel HLS Compiler and optionally contain HLS-specific
+compiler directives.
+
 ## Install Csmith
 
 You can install Csmith from tarballs downloaded from [here (coming soon)](doc/releases.md),
@@ -72,23 +78,39 @@ Here is a slightly outdated but still relevant document about
 ## Run Csmith with HLS
 
 ### Run Csmith with probabilities file 
+You must specify the probability file we provide and use all flags shown here when generating HLS-compatible programs. These flags are required in all the following examples as well.
 ```
 csmith --probability-configuration prob.txt --no-argc --max-array-dim 3 --max-funcs 5 --max-expr-complexity 2 --no-float --no-embedded-assigns --max-block-depth 2 --no-unions --no-packed-struct --no-const-pointers --no-pointers --strict-const-arrays > random.c
 ```
 
+### Run Csmith with HLS mode
+We have added an HLS mode that creates a component function to synthesize. It is required when generating programs that will be compiled to target an FPGA.
+```
+csmith --hls-mode > random.c
+```
+
 ### Run Csmith with component function 
-You can modify the value of component\_function\_prob=\<number between 0-100\> in prob.txt. 
+To randomly label functions as components, use `--component-function`. You can modify the value of `component_function_prob=<number between 0-100>` in prob.txt or specify it on the command line.
 ```
 csmith --component-function > random.c
+csmith --component-function --component-function-prob 50 > random.c
 ```
 
 ### Run Csmith with loop pragmas 
-You can modify the value of loop\_pragma\_prob=\<number between 0-100\> in prob.txt. 
+To add loop pragmas, use `--loop-pragmas`. You can modify the value of `loop_pragma_prob=<number between 0-100>` in prob.txt or specify it on the command line.
 ```
 csmith --loop-pragmas > random.c
+csmith --loop-pragmas --loop-pragma-prob 50 > random.c
 ```
 
-### Compile Csmith with HLS Compiler 
+### Run Csmith with static variables
+To add static variables, use `--static-vars`.  You can modify the value of `static_var_prob=<number between 0-100>` in prob.txt or specify it on the command line.
+```
+csmith --static-vars > random.c
+csmith --static-vars --static-var-prob 50 > random.c
+```
+
+### Compile Csmith-generated programs with HLS Compiler 
 Command has the following structure. 
 ```
 dpcpp -Wno-narrowing -fintelfpga -march=x86-64 [filename] -o [output executable name].exe -I[path to hls-include]
@@ -97,6 +119,16 @@ dpcpp -Wno-narrowing -fintelfpga -march=x86-64 [filename] -o [output executable 
 An example command. 
 ```
 dpcpp -Wno-narrowing -fintelfpga -march=x86-64 random.c -o random.exe -Ihls-include
+```
+
+Using the Intel HLS Compiler (i++) directly. This is how we test our programs locally.
+```
+i++ -Wno-narrowing -march=x86-64 -IC:\csmith\runtime -IC:\intelFPGA_pro\21.4\hls\include random.c  -o random.exe
+```
+
+Compiling to target an FPGA. This has only been tested locally with i++.
+```
+i++ -Wno-narrowing -march=CycloneV -IC:\csmith\runtime -IC:\intelFPGA_pro\21.4\hls\include random.c  -o random.exe
 ```
 
 ### Run Compiled Program 
