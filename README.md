@@ -19,6 +19,8 @@ This version of Csmith has been extended to produce random programs that are
 compatible with the Intel HLS Compiler and optionally contain HLS-specific
 compiler directives.
 
+Please see the paper in cs-239-files for more details.
+
 ## Install Csmith
 
 You can install Csmith from tarballs downloaded from [here (coming soon)](doc/releases.md),
@@ -78,7 +80,7 @@ Here is a slightly outdated but still relevant document about
 ## Run Csmith with HLS
 
 ### Run Csmith with probabilities file 
-You must specify the probability file we provide and use all flags shown here when generating HLS-compatible programs. These flags are required in all the following examples as well.
+You must specify the probability file we provide and use all flags shown here when generating HLS-compatible programs. The probability files we have used can be found in hls-specific/probabilities. These flags are required in all the following examples as well.
 ```
 csmith --probability-configuration prob.txt --no-argc --max-array-dim 3 --max-funcs 5 --max-expr-complexity 2 --no-float --no-embedded-assigns --max-block-depth 2 --no-unions --no-packed-struct --no-const-pointers --no-pointers --strict-const-arrays > random.c
 ```
